@@ -1,0 +1,62 @@
+{% load static %}  <!-- static file 한데 다 모아주는 코드-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>My Little Lotto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link href="//fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="lotto.css"> -->
+  <link rel="stylesheet" href="{% static 'css/lotto.css' %}"> <!-- {% 는 django문법이라 render함수가 해석해주는거야-->
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>
+      Selected Lotto Numbers
+      <a href="{% url 'new_lotto' %}">
+        <span class="glyphicon glyphicon-plus btn btn-default"></span>
+      </a>
+    </h1>
+  </div>
+  <div class="container lotto">
+
+    {% for lotto in lottos %}
+      <!--
+      <h5>{ { lotto.id } }</h5>
+      <h5>{ { lotto.name } }</h5>
+      <h5>{ { lotto.text } }</h5>
+      <h5>{ { lotto.update_date } }</h5>
+      <h5>{ { lotto.lottos } }</h5>
+      <hr>
+      -->
+
+      <!-- url reversing-->
+      <h2>
+        <a href="{% url 'detail' lottokey=lotto.pk %}">
+          {{lotto.text}}
+        </a>
+      </h2>
+      <!--
+      <h1>
+        <a href="{% url 'detail' lottokey=lotto.pk %}">
+          {{ lotto.id }}
+        </a>
+      </h1>
+
+      <h2>{{ lotto.text }}</h2>
+    -->
+      <p>{{ lotto.update_date }}</p>
+      <p>{{ lotto.lottos | linebreaksbr }}</p>
+
+    {% endfor %}
+
+
+    <h2>Good luck!</h2>
+    <p> last update:2030/12/31</p>
+    <p> 1, 10, 19, 15, 20, 35 </p>
+  </div>
+</body>
+</html>
